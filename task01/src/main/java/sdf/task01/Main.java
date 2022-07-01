@@ -20,12 +20,12 @@ public class Main {
         String csvFile = args[0];
         String templateFile = args[1];
 
-        System.out.printf("csv: %s, template: %s \n", csvFile, templateFile);
+        System.out.printf("csv: %s, template: %s \n", csvFile, templateFile); // check args
 
+        // read template
         String template = "";
         String line;
 
-        // read template
         try {
             fr = new FileReader(templateFile);
             br = new BufferedReader(fr);
@@ -41,7 +41,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        // read csv
+        // read csv and get collection of maps
         LinkedList<Map> data = CsvReader.readCsv(csvFile);
 
         // print replaced template for every person data

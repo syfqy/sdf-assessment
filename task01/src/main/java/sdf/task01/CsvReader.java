@@ -20,7 +20,7 @@ public class CsvReader {
 
         try {
 
-            // init input streams
+            // init readers
             fr = new FileReader(csvFile);
             br = new BufferedReader(fr);
 
@@ -31,11 +31,11 @@ public class CsvReader {
             }
 
             // separate to lines
-            String[] split = content.split("\n");
+            String[] contentSplit = content.split("\n");
             
             // delimit by comma
             LinkedList<String[]> lines = new LinkedList<String[]>();
-            for (String l : split) {
+            for (String l : contentSplit) {
                 l = l.replace("\\n", "\n"); // insert newline in address
                 String[] line = l.split(",");
                 lines.add(line);
@@ -44,7 +44,7 @@ public class CsvReader {
             // assign first row as col headers
             String[] headers = lines.get(0);
 
-            // create person data map (header: data)
+            // init collection of person-data map (header: data) 
             for (int i = 1; i < lines.size(); i++) {
                 Map<String, String> personData = new HashMap<>();
                 String[] data = lines.get(i);

@@ -9,7 +9,7 @@ public class TemplateWriter {
     List<String> keysToReplace;
     Map<String, String> personData;
 
-    public TemplateWriter(String template, List<String> keysToReplace, Map personData) {
+    public TemplateWriter(String template, List<String> keysToReplace, Map<String, String> personData) {
         this.template = template;
         this.keysToReplace = keysToReplace;
         this.personData = personData;
@@ -19,7 +19,7 @@ public class TemplateWriter {
     public String fillTemplate() {
         String newTemplate = this.template;
         for (String key : this.keysToReplace) {
-            String replaceWith = this.personData.get(key);
+            String replaceWith = this.personData.get(key); // replaces each __col_header__ found in template with data
             newTemplate = newTemplate.replaceAll(key, replaceWith);
         }
         return newTemplate;
