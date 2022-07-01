@@ -9,15 +9,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class App {
+public class Main {
     public static void main(String[] args) {
+
+        // declare readers
+        FileReader fr;
+        BufferedReader br;
 
         // get args
         String csvFile = args[0];
         String templateFile = args[1];
-        LinkedList<Person> personsList = new LinkedList<Person>();
-        FileReader fr;
-        BufferedReader br;
 
         System.out.printf("csv: %s, template: %s \n", csvFile, templateFile);
 
@@ -39,19 +40,17 @@ public class App {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(template);
 
         // read csv
         LinkedList<Map> data = CsvReader.readCsv(csvFile);
 
+        // print replaced template for every person data
         String filledTemplate = "";
         for (int i = 0; i < data.size(); i++) {
             Map<String, String> personData = data.get(i);
             List<String> keys = new ArrayList<String>(personData.keySet());
-            for (Map.Entry<String, String> entry : personData.entrySet()) {
-                TemplateWriter tw = new TemplateWriter(template, keys, personData);
+            TemplateWriter tw = new TemplateWriter(template, keys, personData);
             filledTemplate = tw.fillTemplate();
-            }
             System.out.println(filledTemplate);
         }
 

@@ -24,6 +24,7 @@ public class CsvReader {
             fr = new FileReader(csvFile);
             br = new BufferedReader(fr);
 
+            // read content from csv
             while ((s1 = br.read()) != -1) {
                 char c = (char) s1;
                 content += c;
@@ -35,6 +36,7 @@ public class CsvReader {
             // delimit by comma
             LinkedList<String[]> lines = new LinkedList<String[]>();
             for (String l : split) {
+                l = l.replace("\\n", "\n"); // insert newline in address
                 String[] line = l.split(",");
                 lines.add(line);
             }
@@ -53,7 +55,6 @@ public class CsvReader {
                 }
                 csvData.add(personData);
             }
-            System.out.println(csvData);
             br.close();
 
         } catch (IOException e) {

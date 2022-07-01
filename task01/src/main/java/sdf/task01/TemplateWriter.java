@@ -15,13 +15,13 @@ public class TemplateWriter {
         this.personData = personData;
     }
 
+    // fills template with person data
     public String fillTemplate() {
-        String newTemplate = template;
-        for (String key : keysToReplace) {
-            String replaceWith = personData.get(key);
+        String newTemplate = this.template;
+        for (String key : this.keysToReplace) {
+            String replaceWith = this.personData.get(key);
             newTemplate = newTemplate.replaceAll(key, replaceWith);
         }
-        // System.out.println(newTemplate);
         return newTemplate;
     }
     
