@@ -47,7 +47,7 @@ public class ClientApp {
         Socket socket = new Socket(this.address, this.port);
         System.out.printf("Connected to server %s on port %d\n", this.address, this.port);
 
-        // init IO stream
+        // init IO streams
         ObjectOutputStream oos = null;
         ObjectInputStream ois = null;
 
@@ -60,13 +60,14 @@ public class ClientApp {
         // process response
         String[] respSplit = resp.split(" ");
         String reqId = respSplit[0];
-
         String[] numsStr = respSplit[1].split(",");
+
+        // calculate average
         int[] nums = Arrays.stream(numsStr).mapToInt(Integer::parseInt).toArray();
         float denom = (float) nums.length;
         int sum = IntStream.of(nums).sum();
         float avg = sum / denom;
-        System.out.printf("sum: %d, length: %f, avg: %f\n", sum, denom, avg);
+        System.out.printf("sum: %d, length: %f, avg: %f\n", sum, denom, avg); // sanity check
 
         // return response to server
         this.sendResponse(oos, reqId);
@@ -81,7 +82,7 @@ public class ClientApp {
         result = ois.readBoolean();
         System.out.println("server: " + result);
 
-        // print result and close connection
+        // print result and close IO streams and connection
         if(result) {
             System.out.println("SUCCESS");
         } else {
@@ -89,6 +90,8 @@ public class ClientApp {
             String errMsg = this.readStringResponse(ois);
             System.out.println(errMsg);
         }
+        ois.close();
+        oos.close();
         socket.close();
     }
 
